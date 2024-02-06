@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 const {Schema, model} = mongoose;
 import validator from "validator"
+import { comparePassword, hiddenPassword } from "../library/cryptingPass.js";
 const { isStrongPassword, isEmail } = validator;
 
 
@@ -32,8 +33,6 @@ userSchema.statics.findByEmail = function (email) {
 
 userSchema.statics.signUp = async function (email,password){
 
-
-    
     
     if(!isEmail(email)){
         const error = new Error ("You not send a real email.");
@@ -52,8 +51,10 @@ userSchema.statics.signUp = async function (email,password){
         error.statusCode= 400;
         throw error;
     }
-    const user = await this.create({email,password});
-    return user;
+    const hashedPassword= await hiddenPassword(password);
+
+    const user = await this.create({email,password: hashedPassword});
+    return user; 
 }
 
 userSchema.statics.logIn = async function (email,password){
@@ -67,13 +68,23 @@ userSchema.statics.logIn = async function (email,password){
     if(!user){
         failError()
     }
-    if(user.password !== password){
+
+    const passwordMatch = await comparePassword(password, user.password);
+    if(!passwordMatch){
         failError()
     }
 
     return user;
 
   
+}
+
+userSchema.methods.clean = async function() {
+    const user = this.toObject();
+    delete user.password;
+    delete user.__v;
+    delete user._id;
+    return user;
 }
 
 
