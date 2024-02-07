@@ -24,7 +24,12 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true,      
-    }
+    },
+    created: {
+        type: Date,
+        default: ()=> Date.now(),
+        immutable: true
+    },
 })
 
 userSchema.statics.findByEmail = function (email) {

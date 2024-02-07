@@ -21,7 +21,7 @@ export const comparePassword = async (password, hashedPassword) => {
     return match;
 }
 
-// Generate Token 
+// Generate and verify Token 
 
 export const generateToken = (_id) => {
     const token = jwt.sign({_id}, SECRET_KEY, {expiresIn: "30d"})

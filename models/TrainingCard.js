@@ -5,7 +5,7 @@ const cardSchema = new Schema({
     name: {
         type: String,
         minLength: 5,
-        maxLength: 10,
+        maxLength: 20,
         required: true,
         trim: true
     },
