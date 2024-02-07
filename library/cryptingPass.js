@@ -2,20 +2,21 @@ import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 dotenv.config();
 import jwt from "jsonwebtoken"
+const {PEPPER_KEY, SECRET_KEY} = process.env
 
 //Adding salt and pepper for my passwords
 
 export const hiddenPassword = async (password) => {
     const salt = await bcrypt.genSalt(15);
 
-    const combined = password + process.env.PEPPER_KEY;
+    const combined = password + PEPPER_KEY;
 
-    const hashedPassword = bcrypt.hash(combined,salt)
+    const hashedPassword = await bcrypt.hash(combined,salt)
     return hashedPassword;
 }
 
 export const comparePassword = async (password, hashedPassword) => {
-    const combined = password + process.env.PEPPER_KEY;
+    const combined = password + PEPPER_KEY;
     const match= await bcrypt.compare(combined, hashedPassword);
     return match;
 }
@@ -23,7 +24,7 @@ export const comparePassword = async (password, hashedPassword) => {
 // Generate Token 
 
 export const generateToken = (_id) => {
-    const token = jwt.sign({_id}, process.env.SECRET_KEY, {expiresIn: "30d"})
+    const token = jwt.sign({_id}, SECRET_KEY, {expiresIn: "30d"})
     return token
 }
 
@@ -48,9 +49,10 @@ export const requireAuth = (req,res,next)=> {
         }
 
         verifyToken(token)
+        next();
     }catch(error) {
         console.error(error.message);
         return res.status(401).send(`Request is not authorized: ${error.message} `)
     }
-    next();
+    
 }
