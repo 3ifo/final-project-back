@@ -27,6 +27,7 @@ const cardSchema = new Schema({
         max: 120,
         required: true
     },
+    difficult: String,
     image: String,
     created: {
         type: Date,
@@ -35,7 +36,6 @@ const cardSchema = new Schema({
     },
     notes: {
         type: String,
-        minLength: 1,
         maxLength: 400
     }
 })

@@ -8,7 +8,7 @@ router.use(express.json())
 
 //My CRUD
 
-router.get("/", async (req,res)=> {
+router.get("/mygymcards", async (req,res)=> {
 
     try {  
         const trainingCards = await TrainingCard.find()
@@ -22,7 +22,21 @@ router.get("/", async (req,res)=> {
 })
 
 
-router.post("/", async (req,res)=> {
+router.get("/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+        const trainingCard = await TrainingCard.findById(req.params.id);
+        if (!trainingCard) {
+            return res.status(404).send("TrainingCard not found");
+        }
+        res.send(trainingCard);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
+
+router.post("/mygymcards", async (req,res)=> {
     try {  
         const newTrainingCard = req.body;
 
@@ -40,7 +54,7 @@ router.delete('/:id', async (req, res) => {
     const { id } = req.params;
 
     try{
-        await TrainingCard.deleteOne(id);
+        await TrainingCard.deleteOne({_id: id});
 
         return res.send(`Card with id ${id} deleted with success.`);
 

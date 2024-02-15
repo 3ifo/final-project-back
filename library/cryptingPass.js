@@ -29,8 +29,8 @@ export const generateToken = (_id) => {
 }
 
 export const verifyToken = (token) => {
-    const verified = jwt.verify (token, SECRET_KEY)
-    return verified
+    const { _id } = jwt.verify (token, SECRET_KEY)
+    return _id;
 }
 
 // auth middleware

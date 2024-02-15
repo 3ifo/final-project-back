@@ -29,7 +29,7 @@ app.use(
 app.use("/authentication", authenticationRouter);
 
 //Authentication middleware
-app.use(requireAuth);
+ app.use(requireAuth); 
 
 //User routes
 app.use("/trainingcards", trainingCardsRouter);
