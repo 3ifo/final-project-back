@@ -20,7 +20,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["final-project-front-beta.vercel.app"],
     credentials: true,
   })
 ); 
