@@ -6,7 +6,7 @@ const router = express.Router()
 router.use(express.json())
 
 
-//My CRUD
+//La mia CRUD
 
 router.get("/mygymcards", async (req,res)=> {
 

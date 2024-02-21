@@ -10,7 +10,7 @@ import { requireAuth } from "./library/cryptingPass.js";
 
 const { MONGO_URI } = process.env;
 
-// My server
+//  server
 
 const app = express();
 
@@ -23,13 +23,16 @@ app.use(
     origin: ["http://localhost:5173"],
     credentials: true,
   })
-);
+); 
+
+
+
 
 //routes
 app.use("/authentication", authenticationRouter);
 
-//Authentication middleware
- app.use(requireAuth); 
+//Authoriz middleware
+app.use(requireAuth);
 
 //User routes
 app.use("/trainingcards", trainingCardsRouter);

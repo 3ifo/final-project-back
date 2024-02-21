@@ -5,22 +5,26 @@ const cardSchema = new Schema({
     name: {
         type: String,
         minLength: 5,
-        maxLength: 20,
+        maxLength: 15,
         required: true,
         trim: true
     },
     exercises: {
         type: String,
-        minLength: 20,
-        maxLength: 400,
+        minLength: 10,
+        maxLength: 250,
         required: true
     },
     series: {
         type: Number,
         min: 1,
-        max: 5,
-        required: true
-    },    
+        max: 7,
+    },
+    
+    type: {
+        type: String,
+    },
+    
     duration: {
         type: Number,
         min: 20,
@@ -36,7 +40,7 @@ const cardSchema = new Schema({
     },
     notes: {
         type: String,
-        maxLength: 400
+        maxLength: 150
     }
 })
 

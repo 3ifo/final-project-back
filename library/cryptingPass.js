@@ -4,7 +4,7 @@ dotenv.config();
 import jwt from "jsonwebtoken"
 const {PEPPER_KEY, SECRET_KEY} = process.env
 
-//Adding salt and pepper for my passwords
+//In questo modo aggiungo sale e pepe per le mie password, ho scelto 15 caratteri per aumentare la sicurezza
 
 export const hiddenPassword = async (password) => {
     const salt = await bcrypt.genSalt(15);
@@ -21,7 +21,7 @@ export const comparePassword = async (password, hashedPassword) => {
     return match;
 }
 
-// Generate and verify Token 
+// Qui genero ed in seguito verifico il token
 
 export const generateToken = (_id) => {
     const token = jwt.sign({_id}, SECRET_KEY, {expiresIn: "30d"})
@@ -33,7 +33,7 @@ export const verifyToken = (token) => {
     return _id;
 }
 
-// auth middleware
+// Questo è il mio auth middleware
 
 export const requireAuth = (req,res,next)=> {
 
