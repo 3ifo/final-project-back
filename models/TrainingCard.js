@@ -23,6 +23,7 @@ const cardSchema = new Schema({
     
     type: {
         type: String,
+        required:true
     },
     
     duration: {
@@ -40,7 +41,7 @@ const cardSchema = new Schema({
     },
     notes: {
         type: String,
-        maxLength: 150
+        maxLength: 75
     }
 })
 

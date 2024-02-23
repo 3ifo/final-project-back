@@ -18,14 +18,12 @@ const app = express();
 
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(
+ app.use(
   cors({
-    origin: ["https://final-project-front-beta.vercel.app"],
+    origin: ["https://final-project-front-beta.vercel.app", "http://localhost:5173"],
     credentials: true,
   })
 ); 
-
-
 
 
 //routes
