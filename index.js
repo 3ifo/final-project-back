@@ -20,7 +20,7 @@ app.use(morgan("dev"));
 app.use(express.json());
  app.use(
   cors({
-    origin: ["https://final-project-front-beta.vercel.app", "http://localhost:5173", "http://192.168.1.88:5173"],
+    origin: ["https://final-project-front-beta.vercel.app"],
     credentials: true,
   })
 ); 

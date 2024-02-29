@@ -113,13 +113,11 @@ router.delete('/:id', async (req, res) => {
         res.status(404).send(error.message)
     }
 });
-
-
 router.patch("/:id", async (req, res) => {
     try {
         const { id } = req.params;
 
-        await TrainingCard.findByIdAndUpdate(id, req.body);
+        await TrainingCard.findByIdAndUpdate(id, req.body,  { new: true, runValidators: true });
 
         const updatedTrainingCard = await TrainingCard.findById(id);  
 
@@ -130,5 +128,7 @@ router.patch("/:id", async (req, res) => {
         res.status(404).send(error.message);
     }
 });
+
+
 
 export default router;
