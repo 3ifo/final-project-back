@@ -13,6 +13,12 @@ const strongPasswordOptions = {
 };
 
 const userSchema = new Schema({
+  username: {
+    type: String,
+    unique: true,
+    trim: true
+  },
+  
   email: {
     type: String,
     required: true,
@@ -34,7 +40,7 @@ userSchema.statics.findByEmail = function (email) {
   return this.findOne({ email });
 };
 
-userSchema.statics.signUp = async function (email, password) {
+userSchema.statics.signUp = async function (username, email, password) {
   if (!isEmail(email)) {
     const error = new Error("You not send a real email.");
     error.statusCode = 400;
@@ -54,7 +60,7 @@ userSchema.statics.signUp = async function (email, password) {
   }
   const hashedPassword = await hiddenPassword(password);
 
-  const user = await this.create({ email, password: hashedPassword });
+  const user = await this.create({ username , email, password: hashedPassword });
   return user;
 };
 

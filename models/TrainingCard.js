@@ -1,5 +1,6 @@
 import mongoose from "mongoose"
 const {model, Schema} = mongoose;
+import { SchemaTypes } from "mongoose";
 
 const cardSchema = new Schema({
     name: {
@@ -42,7 +43,13 @@ const cardSchema = new Schema({
     notes: {
         type: String,
         maxLength: 75
+    },
+    owner: {
+        type: SchemaTypes.ObjectId,
+        required: true,
+        ref: "User"
     }
+
 })
 
 const TrainingCard = model("TrainingCard", cardSchema);

@@ -5,13 +5,13 @@ import { generateToken } from "../library/cryptingPass.js";
 const router = express.Router();
 
 router.post("/signup", async (req,res)=> {
-    const {email,password} = req.body;
+    const {username ,email,password} = req.body;
     if(!email || !password){
         return res.status(400).send("All fields must be filled.")
     }
 
     try {
-        const user= await User.signUp(email,password);
+        const user= await User.signUp(username,email,password);
         const token = generateToken(user._id)
         return res.status(201).send({
             user: user.clean(),
